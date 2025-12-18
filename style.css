@@ -1,0 +1,358 @@
+   :root {
+        --crimson: #8b0000;
+        --burgundy: #65000b;
+        --old-gold: #d4af37;
+        --ivory: #fffff0;
+        --charcoal: #2b2b2b;
+        --mocha: #3e2723;
+        --rose-quartz: #f7cac9;
+        --silver: #c0c0c0;
+        --soft-white: #faf9f6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, var(--mocha), var(--burgundy));
+        color: var(--ivory);
+        font-family: "Raleway", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .container {
+        text-align: center;
+        z-index: 10;
+        width: 100%;
+        max-width: 1200px;
+        padding: 2rem;
+        position: relative;
+      }
+
+      .title-container {
+        position: relative;
+        margin-bottom: 2rem;
+      }
+
+      .title-container::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.08), transparent 70%);
+        border-radius: 50%;
+        z-index: -1;
+      }
+
+      h1 {
+        font-family: "Great Vibes", cursive;
+        font-weight: 400;
+        font-size: 6rem;
+        color: var(--old-gold);
+        text-shadow: 
+          0 0 10px rgba(212, 175, 55, 0.4),
+          0 0 20px rgba(139, 0, 0, 0.3);
+        margin-bottom: 0.5rem;
+        animation: glow 3s infinite ease-in-out;
+        letter-spacing: 2px;
+        position: relative;
+      }
+
+      h1::after {
+        content: "🕯️";
+        position: absolute;
+        top: -10px;
+        right: -40px;
+        font-size: 2rem;
+        opacity: 0.9;
+        animation: twinkle 2.5s infinite alternate;
+      }
+
+      @keyframes glow {
+        0%, 100% { transform: scale(1); text-shadow: 0 0 10px rgba(212, 175, 55, 0.4), 0 0 20px rgba(139, 0, 0, 0.3); }
+        50% { transform: scale(1.02); text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 0 30px rgba(139, 0, 0, 0.4); }
+      }
+
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.7; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.15); }
+      }
+
+      .subtitle {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 1.4rem;
+        color: var(--rose-quartz);
+        font-weight: 700;
+        margin-bottom: 2rem;
+        line-height: 1.4;
+        position: relative;
+        display: inline-block;
+        padding: 0 1rem;
+        letter-spacing: 1px;
+      }
+
+      .subtitle::before,
+      .subtitle::after {
+        content: "❄";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        opacity: 0.7;
+        color: var(--old-gold);
+      }
+
+      .subtitle::before { left: -20px; }
+      .subtitle::after { right: -20px; }
+
+      .gift-container {
+        cursor: pointer;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        margin: 3rem auto;
+        width: 200px;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .gift-container:hover {
+        transform: rotate(-6deg) scale(1.12);
+      }
+
+      .gift-box {
+        font-size: 7rem;
+        filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+        transition: all 0.5s;
+      }
+
+      #click-me {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 1.1rem;
+        color: var(--rose-quartz);
+        margin-top: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 0 0 8px rgba(247, 202, 201, 0.5);
+        animation: pulse 2s infinite;
+        position: relative;
+      }
+
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.9; }
+        50% { transform: scale(1.04); opacity: 1; }
+      }
+
+      .content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        margin: 3rem auto;
+        max-width: 1400px;
+        /* Le conteneur est visible, mais les enfants sont cachés au départ */
+      }
+
+      .card {
+        background: rgba(30, 20, 20, 0.75);
+        border-radius: 1rem;
+        padding: 2rem;
+        width: 330px;
+        box-shadow: 
+          0 10px 25px rgba(0, 0, 0, 0.5),
+          inset 0 1px 0 rgba(212, 175, 55, 0.1);
+        border: 1px solid var(--silver);
+        position: relative;
+        overflow: hidden;
+        
+        /* Initial state for animation */
+        opacity: 0;
+        transform: translateY(50px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Pour le hover */
+      }
+
+      /* Animation déclenchée en JS */
+      .card.show {
+        animation: slideUpFade 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--crimson), var(--old-gold));
+      }
+
+      .card:hover {
+        transform: translateY(-12px) !important; /* Force override of animation transform */
+        box-shadow: 
+          0 15px 35px rgba(0, 0, 0, 0.6),
+          0 0 20px rgba(212, 175, 55, 0.2);
+        border-color: var(--old-gold);
+      }
+
+      .card h2 {
+        font-family: "Cinzel Decorative", serif;
+        color: var(--old-gold);
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+
+      .card p {
+        font-family: "Raleway", sans-serif;
+        line-height: 1.7;
+        color: var(--soft-white);
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+      }
+
+      #message {
+        width: 100%;
+        max-width: 800px;
+        margin: 2.5rem auto;
+        padding: 3rem;
+        background: rgba(20, 10, 10, 0.6);
+        border-radius: 18px;
+        border: 1px solid rgba(212, 175, 55, 0.25);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        
+        /* Hidden initially */
+        display: none; 
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      /* Animation du message central */
+      #message.show-message {
+        display: block;
+        animation: zoomInFade 1s ease forwards;
+      }
+
+      #message p {
+        font-family: "Great Vibes", cursive;
+        font-size: 2.5rem;
+        line-height: 1.4;
+        color: var(--ivory);
+        text-align: center;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .message_end {
+        font-family: "Cinzel Decorative", serif !important;
+        margin-top: 2rem;
+        font-size: 1.4rem !important;
+        color: var(--old-gold) !important;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: 2px;
+        position: relative;
+        padding-top: 1rem;
+        text-transform: uppercase;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem 0;
+        width: 100%;
+        max-width: 800px;
+        margin-top: 2rem;
+        border-top: 1px solid rgba(212, 175, 55, 0.2);
+        
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      footer.show-footer {
+        animation: slideUpFade 1s ease forwards;
+      }
+
+      footer p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+        font-family: "Raleway", sans-serif;
+      }
+
+      footer p:first-child {
+        color: var(--ivory);
+        font-size: 0.95rem;
+        font-weight: 300;
+      }
+
+      footer p:last-child {
+        font-family: "Great Vibes", cursive;
+        color: var(--old-gold);
+        font-size: 1.8rem;
+        font-weight: 400;
+        margin-top: 1.5rem;
+        text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+      }
+
+      /* --- DEFINITION DES ANIMATIONS --- */
+      @keyframes slideUpFade {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes zoomInFade {
+        from {
+          opacity: 0;
+          transform: scale(0.85);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        h1 { font-size: 4rem; }
+        .subtitle { font-size: 1.1rem; }
+        .gift-box { font-size: 5rem; }
+        .card { width: 100%; max-width: 340px; }
+        #message p { font-size: 2rem; }
+        .message_end { font-size: 1.1rem !important; }
+      }
