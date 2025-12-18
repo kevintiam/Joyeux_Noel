@@ -42,7 +42,7 @@
       });
 
       // --- NOUVELLE LOGIQUE D'ANIMATION ---
-      function revealMessages() {
+      const revealMessages = () => {
         const clickMe = document.getElementById("click-me");
         const giftBox = document.querySelector(".gift-box");
         const giftContainer = document.querySelector(".gift-container");
@@ -82,3 +82,24 @@
           footer.classList.add("show-footer");
         }, messageDelay + 800);
       }
+        document.querySelector(".gift-container").onclick = revealMessages;
+
+      // --- CONTRÔLE AUDIO ---
+      const audioToggle = document.getElementById("audio-toggle");
+      const backgroundMusic = document.getElementById("background-music");
+      let isPlaying = false;
+
+      audioToggle.addEventListener("click", () => {
+        if (isPlaying) {
+          backgroundMusic.pause();
+          audioToggle.innerHTML = '<i class="fas fa-music"></i>';
+          audioToggle.classList.remove("playing");
+          audioToggle.classList.add("muted");
+        } else {
+          backgroundMusic.play();
+          audioToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+          audioToggle.classList.add("playing");
+          audioToggle.classList.remove("muted");
+        }
+        isPlaying = !isPlaying;
+      });
